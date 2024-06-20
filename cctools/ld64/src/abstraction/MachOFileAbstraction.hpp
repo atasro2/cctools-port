@@ -277,6 +277,10 @@ static const ArchInfo archInfoArray[] = {
 	#define SUPPORT_ARCH_arm_any 1
 #endif
 #if SUPPORT_ARCH_armv6
+        { "arm",   CPU_TYPE_ARM,     CPU_SUBTYPE_ARM_V4T,     "armv4t-",   "", true,  false },
+        #define SUPPORT_ARCH_arm_any 1
+#endif
+#if SUPPORT_ARCH_armv6
 	{ "armv6", CPU_TYPE_ARM,     CPU_SUBTYPE_ARM_V6,     "armv6-",   "", true,  false },
 	#define SUPPORT_ARCH_arm_any 1
 #endif

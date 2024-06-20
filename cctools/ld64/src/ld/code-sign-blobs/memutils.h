@@ -31,6 +31,7 @@
 //#include <security_utilities/utilities.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <stddef.h> // ld64-port
 #include <algorithm>
 
 #ifdef __GLIBCXX__
@@ -53,9 +54,11 @@ static const size_t systemAlignment = 4;
 //
 // Get the local alignment for a type, as used by the acting compiler.
 //
-template <class T>
-inline size_t alignof() { struct { char c; T t; } s; return sizeof(s) - sizeof(T); }
-
+template <typename T>
+unsigned long myalignof() {
+	struct { char c; T t; } s;
+	return sizeof(s) - sizeof(T);
+}
 
 //
 // Get the local offset of a field in a (struct or class) type, as layed out

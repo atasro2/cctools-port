@@ -3818,14 +3818,18 @@ void Options::reconfigureDefaults()
 			fSDKVersion = fMacVersionMin;
 		}
 		else {
+#ifdef __APPLE__ // ld64-port
 			int mib[2] = { CTL_KERN, KERN_OSRELEASE };
 			char kernVersStr[100];
 			size_t strlen = sizeof(kernVersStr);
 			if ( sysctl(mib, 2, kernVersStr, &strlen, NULL, 0) != -1 ) {
 				uint32_t kernVers = parseVersionNumber32(kernVersStr);
-				int minor = (kernVers >> 16) - 4;  // kernel major version is 4 ahead of x in 10.x
+				int minor = (kernVers >> 16) - 4;  // kernel major version is 4 ahead of x in 10.
 				fSDKVersion = 0x000A0000 + (minor << 8);
 			}
+#else
+			fSDKVersion = 0x000A0600; // ld64-port: claim we are on 10.6
+#endif
 		}
 	}
 	

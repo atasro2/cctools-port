@@ -5067,7 +5067,14 @@ parse_operands (char *str, const unsigned char *pattern)
 
 /* Functions for operand encoding.  ARM, then Thumb.  */
 
-#define rotate_left(v, n) (v << n | v >> (32 - n))
+//#define rotate_left(v, n) (v << n | v >> (32 - n))
+
+static uint32_t rotate_left(uint32_t val, uint32_t rot) {
+    if(val == 0) return val;
+    uint32_t valRot = val << rot;
+    valRot |= val >> (32 - rot);
+    return valRot;
+}
 
 /* If VAL can be encoded in the immediate field of an ARM instruction,
    return the encoded form.  Otherwise, return FAIL.  */
